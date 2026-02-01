@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #ff4d6d;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background: #ccc;
+      position: absolute;
+    }
+
+    .magic {
+      display: none;
+      text-align: center;
+      color: white;
+    }
+
+    .magic h1 {
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+
+    .magic img {
+      width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255,255,255,0.8);
+    }
+
+    #a { color: bisque; }
+
+    /* 🎉 CONFETTI STYLE */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      border-radius: 50%;
+      animation: fall 3s linear forwards;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="question">
+    <h1>Vaibhav Jain, Will you be my Valentine? 💘</h1>
+    <p>I promise unlimited love, hugs, and snacks 🥺</p>
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 😅</button>
+  </div>
+
+  <div class="magic" id="magic">
+    <h1 id="a">YOU SAID YES!!! ✨💞</h1>
+    <p>Get ready for the life full of magic 😍</p>
+    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Magical Love">
+  </div>
+
+  <audio id="winSound" preload="auto">
+    <source src="win.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const question = document.getElementById('question');
+    const magic = document.getElementById('magic');
+    const winSound = document.getElementById('winSound');
+
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    });
+
+    function popConfetti() {
+      const colors = ['#ff4d6d', '#ffd166', '#cdb4db', '#bde0fe', '#ffc8dd'];
+
+      for (let i = 0; i < 80; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor =
+          colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = 2 + Math.random() * 2 + 's';
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 4000);
+      }
+    }
+
+    yesBtn.addEventListener('click', () => {
+      winSound.volume = 0.4;
+      winSound.currentTime = 0;
+      winSound.play();
+
+      popConfetti(); // 🎉 PARTY POPPER EFFECT
+
+      question.style.display = 'none';
+      document.body.style.background =
+        'linear-gradient(135deg, #ff4d6d, #c9184a)';
+      magic.style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
